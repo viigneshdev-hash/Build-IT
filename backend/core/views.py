@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
-import google.generativeai as genai
+from google import genai
 from django.conf import settings
 import json
 import PyPDF2
@@ -28,8 +28,7 @@ def analyze_with_gemini(resume_text, job_desc):
        }
 
     try:
-      genai.configure(api_key=api_key)
-      model = genai.GenerativeModel("gemini-1.5-flash")
+      client = genai.Client(api_key=api_key)
       
       prompt = f"""
       You are an expert ATS (Applicant Tracking System) software. 
@@ -49,8 +48,11 @@ def analyze_with_gemini(resume_text, job_desc):
       
       Only return the JSON object, nothing else.
       """
-      
-      response = model.generate_content(prompt)
+
+      response = client.models.generate_content(
+          model="gemini-1.5-flash",
+          contents=prompt
+      )
       
       # Extract JSON from response
       json_text = response.text.strip()
