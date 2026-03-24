@@ -624,7 +624,7 @@ const Home = () => {
     formData.append('jobDesc', jobDescription || 'General software engineering role');
 
     try {
-      const response = await fetch('http://localhost:8000/api/check-ats-pdf/', {
+      const response = await fetch('https://build-it.onrender.com/api/check-ats-pdf/', {
         method: 'POST',
         body: formData,
       });

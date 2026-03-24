@@ -24,7 +24,7 @@ const ATSPage = () => {
 
     try {
       // Send to our Django backend
-      const response = await axios.post('http://localhost:8000/api/check-ats/', { resumeText, jobDesc });
+      const response = await axios.post('https://build-it.onrender.com/api/check-ats/', { resumeText, jobDesc });
       setResults(response.data);
       setLoading(false);
     } catch (err) {
