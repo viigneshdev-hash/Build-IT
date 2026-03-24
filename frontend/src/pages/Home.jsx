@@ -11,6 +11,8 @@ import { supabase } from '../lib/supabaseClient';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 // --- Resume Template Components (Inlined for simplicity in this file) ---
 
 const ElegantTemplate = ({ data }) => (
@@ -624,7 +626,7 @@ const Home = () => {
     formData.append('jobDesc', jobDescription || 'General software engineering role');
 
     try {
-      const response = await fetch('https://build-it.onrender.com/api/check-ats-pdf/', {
+      const response = await fetch(`${API_URL}/api/check-ats-pdf/`, {
         method: 'POST',
         body: formData,
       });

@@ -7,6 +7,8 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const ATSPage = () => {
   const [resumeText, setResumeText] = useState('');
   const [jobDesc, setJobDesc] = useState('');
@@ -24,7 +26,7 @@ const ATSPage = () => {
 
     try {
       // Send to our Django backend
-      const response = await axios.post('https://build-it.onrender.com/api/check-ats/', { resumeText, jobDesc });
+      const response = await axios.post(`${API_URL}/api/check-ats/`, { resumeText, jobDesc });
       setResults(response.data);
       setLoading(false);
     } catch (err) {
